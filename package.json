@@ -1,0 +1,123 @@
+{
+  "name": "vsnote",
+  "displayName": "vsnote",
+  "description": "Note taking in VSCode",
+  "version": "0.0.1",
+  "publisher": "jeremyoverman",
+  "engines": {
+    "vscode": "^1.23.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./out/extension",
+  "contributes": {
+    "commands": [
+      {
+        "command": "vsnote.openNote",
+        "title": "Open Note"
+      },
+      {
+        "command": "vsnote.renameNote",
+        "title": "Rename Note"
+      },
+      {
+        "command": "vsnote.deleteNote",
+        "title": "Delete Note"
+      },
+      {
+        "command": "vsnote.newNote",
+        "title": "New Note"
+      },
+      {
+        "command": "vsnote.newNotebook",
+        "title": "New Notebook"
+      },
+      {
+        "command": "vsnote.refresh",
+        "title": "Refresh Notes"
+      },
+      {
+        "command": "vsnote.search",
+        "title": "Search Notes"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "notes",
+          "title": "Notes",
+          "icon": "./icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "notes": [
+        {
+          "id": "notes",
+          "name": "Notes"
+        },
+        {
+          "id": "package-outline",
+          "name": "File Explorer"
+        }
+      ]
+    },
+    "menus": {
+      "view/item/context": [
+        {
+          "command": "vsnote.renameNote",
+          "when": "viewItem == vsnote.note"
+        },
+        {
+          "command": "vsnote.deleteNote",
+          "when": "viewItem == vsnote.note"
+        },
+        {
+          "command": "vsnote.newNote",
+          "when": "viewItem == vsnote.notebook"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "vsnote.refresh",
+          "when": "view == notes"
+        },
+        {
+          "command": "vsnote.search",
+          "when": "view == notes"
+        },
+        {
+          "command": "vsnote.newNotebook",
+          "when": "view == notes"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "npm run compile && node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "@types/marked": "^0.3.0",
+    "@types/mocha": "^2.2.42",
+    "@types/node": "^7.0.43",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.1",
+    "vscode": "^1.1.6"
+  },
+  "dependencies": {
+    "@types/text-encoding": "0.0.32",
+    "@types/thrift": "^0.10.7",
+    "evernote": "^2.0.5",
+    "marked": "^0.4.0",
+    "text-encoding": "^0.6.4",
+    "turndown": "^4.0.2"
+  }
+}
