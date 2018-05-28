@@ -1,6 +1,6 @@
-# vsnote README
+# notetree README
 
-This is the README for your extension "vsnote". After writing up a brief description, we recommend including the following sections.
+This is the README for your extension "notetree". After writing up a brief description, we recommend including the following sections.
 
 ## Features
 

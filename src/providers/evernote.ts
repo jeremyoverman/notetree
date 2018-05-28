@@ -7,14 +7,14 @@ import NotebookProvider, { INotebookNode } from '../implementations/provider';
 
 
 export default class EvernoteProvider implements NotebookProvider {
-    token = vscode.workspace.getConfiguration().vsnotes.evernote.token;
+    token = vscode.workspace.getConfiguration().notetree.evernote.token;
     client = new Evernote.Client({ token: this.token });
     noteStore = this.client.getNoteStore();
 
     private handleError (err: any) {
         let message = err.message || `(${err.errorCode}) ${err.parameter}`;
 
-        vscode.window.showErrorMessage(`VSNote: ${message}`);
+        vscode.window.showErrorMessage(`notetree: ${message}`);
 
         throw err;
     }

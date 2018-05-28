@@ -1,6 +1,6 @@
 {
-  "name": "vsnote",
-  "displayName": "vsnote",
+  "name": "notetree",
+  "displayName": "notetree",
   "description": "Note taking in VSCode",
   "version": "0.0.1",
   "publisher": "jeremyoverman",
@@ -17,31 +17,31 @@
   "contributes": {
     "commands": [
       {
-        "command": "vsnote.openNote",
+        "command": "notetree.openNote",
         "title": "Open Note"
       },
       {
-        "command": "vsnote.renameNote",
+        "command": "notetree.renameNote",
         "title": "Rename Note"
       },
       {
-        "command": "vsnote.deleteNote",
+        "command": "notetree.deleteNote",
         "title": "Delete Note"
       },
       {
-        "command": "vsnote.newNote",
+        "command": "notetree.newNote",
         "title": "New Note"
       },
       {
-        "command": "vsnote.newNotebook",
+        "command": "notetree.newNotebook",
         "title": "New Notebook"
       },
       {
-        "command": "vsnote.refresh",
+        "command": "notetree.refresh",
         "title": "Refresh Notes"
       },
       {
-        "command": "vsnote.search",
+        "command": "notetree.search",
         "title": "Search Notes"
       }
     ],
@@ -69,29 +69,29 @@
     "menus": {
       "view/item/context": [
         {
-          "command": "vsnote.renameNote",
-          "when": "viewItem == vsnote.note"
+          "command": "notetree.renameNote",
+          "when": "viewItem == notetree.note"
         },
         {
-          "command": "vsnote.deleteNote",
-          "when": "viewItem == vsnote.note"
+          "command": "notetree.deleteNote",
+          "when": "viewItem == notetree.note"
         },
         {
-          "command": "vsnote.newNote",
-          "when": "viewItem == vsnote.notebook"
+          "command": "notetree.newNote",
+          "when": "viewItem == notetree.notebook"
         }
       ],
       "view/title": [
         {
-          "command": "vsnote.refresh",
+          "command": "notetree.refresh",
           "when": "view == notes"
         },
         {
-          "command": "vsnote.search",
+          "command": "notetree.search",
           "when": "view == notes"
         },
         {
-          "command": "vsnote.newNotebook",
+          "command": "notetree.newNotebook",
           "when": "view == notes"
         }
       ]

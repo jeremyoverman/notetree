@@ -9,7 +9,7 @@ export async function activate(context: vscode.ExtensionContext) {
     let treeDataProvider = new NotebookTreeProvider(noteProvider);
     let fsProvider = new NoteProvider(noteProvider);
 
-    vscode.workspace.registerFileSystemProvider('vsnote', fsProvider, {
+    vscode.workspace.registerFileSystemProvider('notetree', fsProvider, {
         isCaseSensitive: true
     });
 
@@ -17,7 +17,7 @@ export async function activate(context: vscode.ExtensionContext) {
         treeDataProvider
     });
 
-    vscode.commands.registerCommand('vsnote.search', async () => {
+    vscode.commands.registerCommand('notetree.search', async () => {
         let query = await vscode.window.showInputBox({
             prompt: 'Search for notes'
         });
@@ -36,17 +36,17 @@ export async function activate(context: vscode.ExtensionContext) {
         if (!choice) { return; }
 
         let element = results[Number(choice.split(':')[0])];
-        let uri = vscode.Uri.parse(`vsnote://note/${element.name}.md/?guid=${element.resource}`);
+        let uri = vscode.Uri.parse(`notetree://note/${element.name}.md/?guid=${element.resource}`);
 
-        vscode.commands.executeCommand('vsnote.openNote', uri);
+        vscode.commands.executeCommand('notetree.openNote', uri);
 
     });
 
-    vscode.commands.registerCommand('vsnote.refresh', () => {
+    vscode.commands.registerCommand('notetree.refresh', () => {
         treeDataProvider.onDidChangeTreeDataEvent.fire();
     });
 
-    vscode.commands.registerCommand('vsnote.newNotebook', async () => {
+    vscode.commands.registerCommand('notetree.newNotebook', async () => {
         let name = await vscode.window.showInputBox({
             prompt: 'Create notebook',
         });
@@ -58,7 +58,7 @@ export async function activate(context: vscode.ExtensionContext) {
         treeDataProvider.onDidChangeTreeDataEvent.fire();
     });
 
-    vscode.commands.registerCommand('vsnote.newNote', async (ctx: INotebookNode) => {
+    vscode.commands.registerCommand('notetree.newNote', async (ctx: INotebookNode) => {
         let name = await vscode.window.showInputBox({
             prompt: 'Create note',
         });
@@ -70,13 +70,13 @@ export async function activate(context: vscode.ExtensionContext) {
         if (element) {
             treeDataProvider.onDidChangeTreeDataEvent.fire();
 
-            let uri = vscode.Uri.parse(`vsnote://note/${element.name}.md/?guid=${element.resource}`);
+            let uri = vscode.Uri.parse(`notetree://note/${element.name}.md/?guid=${element.resource}`);
 
-            vscode.commands.executeCommand('vsnote.openNote', uri);
+            vscode.commands.executeCommand('notetree.openNote', uri);
         }
     });
 
-    vscode.commands.registerCommand('vsnote.deleteNote', async (ctx: INotebookNode) => {
+    vscode.commands.registerCommand('notetree.deleteNote', async (ctx: INotebookNode) => {
         if (!ctx) { return; }
 
         let answer = await vscode.window.showQuickPick([
@@ -94,7 +94,7 @@ export async function activate(context: vscode.ExtensionContext) {
         }
     });
 
-    vscode.commands.registerCommand('vsnote.renameNote', async (ctx: INotebookNode) => {
+    vscode.commands.registerCommand('notetree.renameNote', async (ctx: INotebookNode) => {
         let newName = await vscode.window.showInputBox({
             prompt: 'Rename note',
             value: ctx.name
@@ -106,7 +106,7 @@ export async function activate(context: vscode.ExtensionContext) {
         treeDataProvider.onDidChangeTreeDataEvent.fire();
     });
 
-    vscode.commands.registerCommand('vsnote.openNote', async uri => {
+    vscode.commands.registerCommand('notetree.openNote', async uri => {
         if (!uri) { return; }
         
         let document;

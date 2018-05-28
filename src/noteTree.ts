@@ -20,17 +20,17 @@ export class NotebookTreeProvider implements vscode.TreeDataProvider<INotebookNo
     }
 
     public getTreeItem(element: INotebookNode): vscode.TreeItem {
-        let uri = vscode.Uri.parse(`vsnote://note/${element.name}.md/?guid=${element.resource}`);
+        let uri = vscode.Uri.parse(`notetree://note/${element.name}.md/?guid=${element.resource}`);
 
         return {
             label: element.name,
             collapsibleState: element.isDirectory ? vscode.TreeItemCollapsibleState.Collapsed : void 0,
             command: element.isDirectory ? void 0 : {
-                command: 'vsnote.openNote',
+                command: 'notetree.openNote',
                 arguments: [uri],
                 title: 'Open Note'
             },
-            contextValue: element.isDirectory ? 'vsnote.notebook' : 'vsnote.note'
+            contextValue: element.isDirectory ? 'notetree.notebook' : 'notetree.note'
         };
     }
 }
