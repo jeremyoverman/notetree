@@ -1,11 +1,21 @@
 import * as vscode from 'vscode';
 import EvernoteProvider from './providers/evernote';
 import { NotebookTreeProvider } from './noteTree';
+import NotebookProvider, { INotebookNode } from './implementations/provider';
 import { NoteProvider } from './noteProvider';
-import { INotebookNode } from './implementations/provider';
+
+interface INoteProviders {
+    [name: string]: new () => NotebookProvider;
+}
+
+const NOTE_PROVIDERS: INoteProviders = {
+    evernote: EvernoteProvider
+};
 
 export async function activate(context: vscode.ExtensionContext) {
-    let noteProvider = new EvernoteProvider();
+    let noteProviderName = vscode.workspace.getConfiguration().notetree.provider;
+
+    let noteProvider = new NOTE_PROVIDERS[noteProviderName]();
     let treeDataProvider = new NotebookTreeProvider(noteProvider);
     let fsProvider = new NoteProvider(noteProvider);
 

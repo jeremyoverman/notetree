@@ -16,8 +16,9 @@ function getGuid (uri: vscode.Uri) {
 
 function getTitle (uri: vscode.Uri) {
     let path = uri.path.replace(/\/$/, '');
+    let file = path.split('/').pop() || '';
 
-    return path.split('/').pop() || '';
+    return file.replace('.md', '');
 }
 
 export class NoteProvider implements vscode.FileSystemProvider {

@@ -5,9 +5,12 @@ import * as marked from 'marked';
 
 import NotebookProvider, { INotebookNode } from '../implementations/provider';
 
+interface MarkedOptions extends marked.MarkedOptions {
+    headerIds: boolean;
+}
 
 export default class EvernoteProvider implements NotebookProvider {
-    token = vscode.workspace.getConfiguration().notetree.evernote.token;
+    token = vscode.workspace.getConfiguration().notetree.evernote.apiKey;
     client = new Evernote.Client({ token: this.token });
     noteStore = this.client.getNoteStore();
 
@@ -42,8 +45,9 @@ export default class EvernoteProvider implements NotebookProvider {
             <?xml version="1.0" encoding="UTF-8"?>
             <!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml2.dtd">
             <en-note>
-                ${marked(content, {
-                    xhtml: true
+                ${marked(content, <MarkedOptions>{
+                    xhtml: true,
+                    headerIds: false
                 })}
             </en-note>
         `.trim();
@@ -107,8 +111,8 @@ export default class EvernoteProvider implements NotebookProvider {
         if (!note) { return; }
 
         return {
-            resource: note.guid,
-            name: note.title,
+            resource: note.guid || '',
+            name: note.title || '',
             isDirectory: false
         };
     } 
