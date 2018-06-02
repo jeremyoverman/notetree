@@ -4,6 +4,11 @@
   "description": "Note taking in VSCode",
   "version": "0.0.1",
   "publisher": "jeremyoverman",
+  "icon": "./images/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeremyoverman/notetree"
+  },
   "engines": {
     "vscode": "^1.23.0"
   },
@@ -22,10 +27,23 @@
           "notetree.provider": {
             "type": "string",
             "enum": [
-              "evernote"
+              "evernote",
+              "mdjotter"
             ]
           },
           "notetree.evernote.apiKey": {
+            "type": "string"
+          },
+          "notetree.mdjotter.hostname": {
+            "type": "string"
+          },
+          "notetree.mdjotter.port": {
+            "type": "number"
+          },
+          "notetree.mdjotter.username": {
+            "type": "string"
+          },
+          "notetree.mdjotter.password": {
             "type": "string"
           }
         }
@@ -53,6 +71,14 @@
         "title": "New Notebook"
       },
       {
+        "command": "notetree.newSubfolder",
+        "title": "New Subfolder"
+      },
+      {
+        "command": "notetree.deleteSubfolder",
+        "title": "Delete Subfolder"
+      },
+      {
         "command": "notetree.refresh",
         "title": "Refresh Notes"
       },
@@ -66,7 +92,7 @@
         {
           "id": "notes",
           "title": "Notes",
-          "icon": "./icon.svg"
+          "icon": "./images/icon.svg"
         }
       ]
     },
@@ -94,6 +120,14 @@
         },
         {
           "command": "notetree.newNote",
+          "when": "viewItem == notetree.notebook"
+        },
+        {
+          "command": "notetree.newSubfolder",
+          "when": "viewItem == notetree.notebook"
+        },
+        {
+          "command": "notetree.deleteSubfolder",
           "when": "viewItem == notetree.notebook"
         }
       ],

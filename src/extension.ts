@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import EvernoteProvider from './providers/evernote';
+import MDJotter from './providers/mdjotter';
 import { NotebookTreeProvider } from './noteTree';
 import NotebookProvider, { INotebookNode } from './implementations/provider';
 import { NoteProvider } from './noteProvider';
@@ -9,13 +10,19 @@ interface INoteProviders {
 }
 
 const NOTE_PROVIDERS: INoteProviders = {
-    evernote: EvernoteProvider
+    evernote: EvernoteProvider,
+    mdjotter: MDJotter
 };
 
 export async function activate(context: vscode.ExtensionContext) {
     let noteProviderName = vscode.workspace.getConfiguration().notetree.provider;
 
     let noteProvider = new NOTE_PROVIDERS[noteProviderName]();
+
+    if (noteProvider.connect) {
+        await noteProvider.connect();
+    }
+
     let treeDataProvider = new NotebookTreeProvider(noteProvider);
     let fsProvider = new NoteProvider(noteProvider);
 
@@ -25,6 +32,45 @@ export async function activate(context: vscode.ExtensionContext) {
 
     vscode.window.createTreeView('notes', {
         treeDataProvider
+    });
+
+    vscode.commands.registerCommand('notetree.deleteSubfolder', async (ctx: INotebookNode) => {
+        if (!ctx) { return; }
+        if (!noteProvider.deleteContainer) {
+            vscode.window.showErrorMessage('Deleting subfolders is not supported with your current note provider');
+            return;
+        }
+
+        let answer = await vscode.window.showQuickPick([
+            'Yes',
+            'No'
+        ], {
+            canPickMany: false,
+            placeHolder: `Delete subfolder ${ctx.name}?`
+        });
+
+        if (answer === 'Yes') {
+            await noteProvider.deleteContainer(ctx.resource);
+
+            treeDataProvider.onDidChangeTreeDataEvent.fire();
+        }
+    });
+
+    vscode.commands.registerCommand('notetree.newSubfolder', async (ctx: INotebookNode) => {
+        if (!noteProvider.createSubfolder) {
+            vscode.window.showErrorMessage('Creating subfolders is not supported with your current note provider');
+            return;
+        }
+
+        let name = await vscode.window.showInputBox({
+            prompt: 'Create sub-folder',
+        });
+
+        if (!name) { return; }
+
+        await noteProvider.createSubfolder(ctx.resource, name);
+
+        treeDataProvider.onDidChangeTreeDataEvent.fire();
     });
 
     vscode.commands.registerCommand('notetree.search', async () => {

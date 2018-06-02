@@ -65,7 +65,7 @@ export default class EvernoteProvider implements NotebookProvider {
         });
     }
 
-    async getNotes (node: INotebookNode) {
+    async getChildren (node: INotebookNode) {
         return this.filterNotes({
             notebookGuid: node.resource
         });

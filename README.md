@@ -1,65 +1,45 @@
-# notetree README
+# NoteTree
 
-This is the README for your extension "notetree". After writing up a brief description, we recommend including the following sections.
+NoteTree adds a new activity bar to VSCode that let's you browse, create, and edit notes from a variety of providers. So far, we have are able to mange notes from [MDJotter](http://mdjotter.com) and [Evernote](http://evernote.com).
+
+![Preview](./images/preview.gif)
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+* Connect to a variety of note providers
+    * [MDJotter](http://mdjotter.com) (created by the developer of NoteTree)
+    * [Evernote](http://evernote.com) (requires developer key from EverNote)
+* Create new notes
+* Organize your notes in folders
+* Organize notes in sub-folders (not available in EverNote provider)
+* Search notes (`ctrl + shift + p`, Search Notes)
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+### notetree.provider
 
-For example:
+This controls which provider you want to use. Currently, this must either be `mdjotter` or `evernote`.
 
-This extension contributes the following settings:
+### notetree.mdjotter.hostname
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+The hostname of the MDJotter server. This defaults to [http://mdjotter.com](http://mdjotter.com).
+
+### notetree.mdjotter.port
+
+The port that the MDJotter API is hosted on. This defaults to `3000`.
+
+### notetree.mdjotter.username
+
+The username of the MDJotter user
+
+### notetree.mdjotter.password
+
+The password for the MDJotter user
+
+### notetree.evernote.apiKey
+
+Your Evernote developer token. Note that you must manually request for an Evernote developer token these days. [See this thread](https://discussion.evernote.com/topic/113349-developer-token-requests/) for more information on how to aquire one.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+MDJotter doesn't support api keys yet, but will soon enough so you don't need to store your credentials in your configuration.

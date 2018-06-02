@@ -11,7 +11,7 @@ export class NotebookTreeProvider implements vscode.TreeDataProvider<INotebookNo
         let nodes;
 
         if (element) {
-            nodes = await this.notebookProvider.getNotes(element);
+            nodes = await this.notebookProvider.getChildren(element);
         } else {
             nodes = await this.notebookProvider.getNotebooks();
         }
