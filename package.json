@@ -4,7 +4,7 @@
   "description": "Note taking in VSCode",
   "version": "0.0.1",
   "publisher": "jeremyoverman",
-  "icon": "./images/icon.png",
+  "icon": "images/icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/jeremyoverman/notetree"
@@ -16,7 +16,7 @@
     "Other"
   ],
   "activationEvents": [
-    "*"
+    "onView:notes"
   ],
   "main": "./out/extension",
   "contributes": {
@@ -101,10 +101,6 @@
         {
           "id": "notes",
           "name": "Notes"
-        },
-        {
-          "id": "package-outline",
-          "name": "File Explorer"
         }
       ]
     },
