@@ -2,7 +2,7 @@
   "name": "notetree",
   "displayName": "notetree",
   "description": "Note taking in VSCode",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "jeremyoverman",
   "icon": "images/icon.png",
   "repository": {
@@ -164,6 +164,7 @@
     "@types/thrift": "^0.10.7",
     "evernote": "^2.0.5",
     "marked": "^0.4.0",
+    "mdjotter-api": "0.0.2",
     "sqlite3": "^4.0.0",
     "text-encoding": "^0.6.4",
     "turndown": "^4.0.2"
